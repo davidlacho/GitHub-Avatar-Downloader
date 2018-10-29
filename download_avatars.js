@@ -24,7 +24,10 @@ const callback = (err, results) => {
   // results[0].forEach((result) => {
   //   console.log(result.avatar_url);
   // });
-  console.log(JSON.parse(results));
+  const parsedResults = JSON.parse(results);
+  parsedResults.forEach((result) => {
+    console.log(result.avatar_url);
+  });
 };
 
 /**
