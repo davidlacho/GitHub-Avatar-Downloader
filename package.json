@@ -2,7 +2,7 @@
   "name": "github-avatar",
   "version": "1.0.0",
   "description": "a command-line HTTP client that will request the avatars for all contributers to a given project on GitHub, and download them to disk.",
-  "main": "index.js",
+  "main": "download_avatars.js",
   "scripts": {
     "test": "mocha"
   },
