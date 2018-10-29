@@ -1,7 +1,11 @@
-# Github-Avatar
+# GitHub Avatar Downloader
 
-## Goals
+## Description
 This project is a command-line HTTP client that will request the avatars for all contributors to a given project on GitHub, and download them to disk.
+
+## Problem Statement
+
+Given a GitHub repository name and owner, download all the contributors' profile images and save them to a subdirectory, `avatars/`.
 
 ## Installation
 Clone this repository to your local disk:
@@ -20,7 +24,7 @@ Create a new file called `token.js`:
 ```
 touch token.js
 ```
-In `token.js`, paste the following code, replacing `<GitHub Access Token>` with your [GitHub Personal Access Token](https://github.com/settings/tokens).:
+In `token.js`, paste the following code, replacing `<GitHub Access Token>` with your [GitHub Personal Access Token](https://github.com/settings/tokens):
 ```
 const gitHubKey = '<GitHub Access Token>';
 
@@ -30,7 +34,10 @@ module.exports.gitHubKey = gitHubKey;
 More coming soon...
 
 ## Usage
-Comming soon...
+
+This program should be executed from the command line, in the following manner:
+
+`node download_avatars.js <user> <repository>`
 
 ## Outcomes of Project
   * Break down larger problems into smaller steps
@@ -42,3 +49,4 @@ Comming soon...
   * JavaScript and Node
   * ES6 Syntax
   * JSDoc
+  * Documentation
