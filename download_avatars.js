@@ -19,8 +19,12 @@ console.log('Welcome to the GitHub Avatar Downloader!');
 const callback = (err, results) => {
   if (err) {
     console.log(err);
+    return undefined;
   }
-  console.log(results);
+  // results[0].forEach((result) => {
+  //   console.log(result.avatar_url);
+  // });
+  console.log(JSON.parse(results));
 };
 
 /**
@@ -36,7 +40,7 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
     headers: {
       'User-Agent': 'request',
-      Authorization: gitHubKey,
+      Authorization: `token ${gitHubKey}`,
     },
   };
   request(options, (err, res, body) => {
