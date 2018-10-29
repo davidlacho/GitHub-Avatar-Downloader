@@ -2,4 +2,7 @@ const {
   gitHubKey
 } = require('./secret/tokens.js');
 
-console.log(gitHubKey);
+
+const request = require('request');
+
+console.log('Welcome to the GitHub Avatar Downloader!');
