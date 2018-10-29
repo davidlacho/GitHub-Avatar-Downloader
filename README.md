@@ -1,11 +1,19 @@
 # Github-Avatar
 
 ## Goals
-In this project you'll build a command-line HTTP client that will request the avatars for all contributers to a given project on GitHub, and download them to disk.
+This project is a command-line HTTP client that will request the avatars for all contributors to a given project on GitHub, and download them to disk.
 
+## Installation
+Clone this repository to your local disk:
+```
+git clone https://github.com/fiveache/GitHub-Avatar-Downloader.git
+```
+
+## Usage
+Comming soon...
 
 ## Outcomes of Project
-  * break down larger problems into smaller steps
+  * Break down larger problems into smaller steps
   * work incrementally towards your solution.
   * HTTP
   * APIs
