@@ -8,6 +8,26 @@ Clone this repository to your local disk:
 ```
 git clone https://github.com/fiveache/GitHub-Avatar-Downloader.git
 ```
+Install dependencies
+```
+npm install
+```
+Generate your [GitHub Personal Access Token](https://github.com/settings/tokens). In the root directory of project, create a new directory called `secret`:
+```
+mkdir secret && cd secret
+```
+Create a new file called `token.js`:
+```
+touch token.js
+```
+In `token.js`, paste the following code, replacing `<GitHub Access Token>` with your [GitHub Personal Access Token](https://github.com/settings/tokens).:
+```
+const gitHubKey = '<GitHub Access Token>';
+
+module.exports.gitHubKey = gitHubKey;
+```
+
+More coming soon...
 
 ## Usage
 Comming soon...
