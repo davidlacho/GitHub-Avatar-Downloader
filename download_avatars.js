@@ -1,20 +1,47 @@
+const request = require('request');
+const fs = require('fs');
 const {
   gitHubKey,
 } = require('./secret/tokens.js');
-const request = require('request');
-const fs = require('fs');
+
 const owner = process.argv[2];
 const repo = process.argv[3];
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
+/**
+ * [downloadImageByURL fetches the desired avatar_url
+ * and saves this information to the given filePath]
+ * @param {[string]}  url   [A remote image URL to fetch]
+ * @param {[string]}  filePath [A local path for where to persist the file]
+ * @return {[undefined]} [undefined]
+ */
+const downloadImageByURL = (url, filePath) => {
+  const startOfuserId = url.lastIndexOf('/u/');
+  const endOfUserId = url.lastIndexOf('?');
+  const userId = url.slice(startOfuserId + 2, endOfUserId);
+  request.get(url)
+    .on('error', (err) => {
+      console.log(err);
+    })
+    .on('response', () => {
+      // Maybe log something to user letting them know?
+    })
+    .pipe(fs.createWriteStream(`${filePath}${userId}.jpg`, (err) => {
+      console.log(err);
+    }));
+  return undefined;
+};
 
 /**
  * [Callback will be passed in to getRepoContributors()
- * & will be executed when there is a response from request]
+ * & will be executed when there is a response from request.
+ * b loops through each item in the array:
+ * It constructs a file path using the login value (e.g., "avatars/dhh.jpg")
+ * It then passes the avatar_url value and the file path to downloadImageByURL]
  * @param  {[type]}   err     [error parameter with http request]
  * @param  {[type]}   results [incoming data from the server]
- * @return {Function}         [undefined]
+ * @return {[undefined]} [undefined]
  */
 const callback = (err, results) => {
   if (err) {
@@ -25,15 +52,17 @@ const callback = (err, results) => {
   parsedResults.forEach((result) => {
     downloadImageByURL(result.avatar_url, './avatars/');
   });
+  return undefined;
 };
 
 /**
- * [getRepoContributors creates a request to the github server
- * and passes the response to the callback that's passed in as an argument]
+ * [getRepoContributors makes a request for JSON, getting back an array of contributors,
+ *  passes this data to cb, an anonymous callback function that it is given,
+ *  ]
  * @param  {[type]}   repoOwner [the username of the repoowner]
  * @param  {[type]}   repoName  [the name of the repo]
  * @param  {Function} cb        [the callback function that will handle the data]
- * @return {[type]}             [undefined]
+ * @return {[undefined]} [undefined]
  */
 const getRepoContributors = (repoOwner, repoName, cb) => {
   const options = {
@@ -46,29 +75,8 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
   request(options, (err, res, body) => {
     cb(err, body);
   });
+  return undefined;
 };
 
-
-/**
- * [downloadImageByURL description]
- * @param {[string]}  url   [A remote image URL to fetch]
- * @param {[string]}  filePath [A local path for where to persist the file]
- */
-const downloadImageByURL = (url, filePath) => {
-  const startOfuserId = url.lastIndexOf('/u/');
-  const endOfUserId = url.lastIndexOf('?');
-  const userId = url.slice(startOfuserId + 2, endOfUserId);
-  console.log(userId);
-  request.get(url)
-    .on('error', (err) => {
-      console.log(err);
-    })
-    .on('response', () => {
-      // Maybe log something to user letting them know?
-    })
-    .pipe(fs.createWriteStream(`${filePath}${userId}.jpg`, (err) => {
-      console.log(err);
-    }));
-};
 
 getRepoContributors(owner, repo, callback);
