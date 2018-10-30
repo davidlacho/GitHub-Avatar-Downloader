@@ -24,13 +24,19 @@ const downloadImageByURL = (url, filePath) => {
   const userId = url.slice(startOfuserId + 2, endOfUserId);
   request.get(url)
     .on('error', (err) => {
-      console.log(err);
+      if (err) {
+        throw new Error(`Error getting results from ${url}: ${err}`);
+      }
     })
-    .on('response', () => {
-      // Maybe log something to user letting them know?
+    .on('response', (res, err) => {
+      if (err) {
+        throw new Error(`Something went wrong when receiving response from server: ${err}`);
+      }
     })
     .pipe(fs.createWriteStream(`${filePath}${userId}.jpg`, (err) => {
-      console.log(err);
+      if (err) {
+        throw new Error('Problem writing file to path.');
+      }
     }));
   return undefined;
 };
@@ -47,8 +53,7 @@ const downloadImageByURL = (url, filePath) => {
  */
 const callback = (err, results) => {
   if (err) {
-    console.log(err);
-    return undefined;
+    throw err;
   }
   const parsedResults = JSON.parse(results);
   const numberOfAvatars = parsedResults.length;
@@ -60,7 +65,7 @@ const callback = (err, results) => {
     });
     console.log('Done!');
   } else {
-    console.log('Could not find avatars to download. Please check user and repository provided');
+    throw new Error('Could not find avatars to download. Please check user and repository exist.');
   }
   return undefined;
 };
@@ -88,10 +93,15 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
   return undefined;
 };
 
-// Does check to ensure arguments passed into command line:
-if (owner && repo) {
-  console.log('Welcome to the GitHub Avatar Downloader!');
-  getRepoContributors(owner, repo, callback);
-} else {
-  console.log('node download_avatars.js <owner> <repo>');
+try {
+  // Does check to ensure arguments passed into command line:
+  if (owner && repo && (process.argv.length === 4)) {
+    console.log('Welcome to the GitHub Avatar Downloader!');
+    getRepoContributors(owner, repo, callback);
+  } else {
+    throw new Error('Missing required arguments: node download_avatars.js <owner> <repo>');
+  }
+} catch (err) {
+  console.log(err);
+  process.exit();
 }
