@@ -31,8 +31,6 @@ const gitHubKey = '<GitHub Access Token>';
 module.exports.gitHubKey = gitHubKey;
 ```
 
-More coming soon...
-
 ## Usage
 
 This program should be executed from the command line, in the following manner:
@@ -45,7 +43,7 @@ This program should be executed from the command line, in the following manner:
   * HTTP
   * APIs
   * JSON
-  * File System
+  * Node File System (fs)
   * JavaScript and Node
   * ES6 Syntax
   * JSDoc
