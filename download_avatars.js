@@ -7,7 +7,6 @@ const {
 const owner = process.argv[2];
 const repo = process.argv[3];
 
-console.log('Welcome to the GitHub Avatar Downloader!');
 
 /**
  * [downloadImageByURL fetches the desired avatar_url
@@ -78,5 +77,9 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
   return undefined;
 };
 
-
-getRepoContributors(owner, repo, callback);
+if (owner && repo) {
+  console.log('Welcome to the GitHub Avatar Downloader!');
+  getRepoContributors(owner, repo, callback);
+} else {
+  console.log('node download_avatars.js <owner> <repo>');
+}
