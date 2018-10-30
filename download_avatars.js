@@ -2,7 +2,7 @@ const {
   gitHubKey,
 } = require('./secret/tokens.js');
 const request = require('request');
-
+const fs = require('fs');
 const owner = process.argv[2];
 const repo = process.argv[3];
 
@@ -21,12 +21,9 @@ const callback = (err, results) => {
     console.log(err);
     return undefined;
   }
-  // results[0].forEach((result) => {
-  //   console.log(result.avatar_url);
-  // });
   const parsedResults = JSON.parse(results);
   parsedResults.forEach((result) => {
-    console.log(result.avatar_url);
+    downloadImageByURL(result.avatar_url, './avatars/');
   });
 };
 
@@ -42,13 +39,36 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
   const options = {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
     headers: {
-      'User-Agent': 'request',
+      'User-Agent': 'node application',
       Authorization: `token ${gitHubKey}`,
     },
   };
   request(options, (err, res, body) => {
     cb(err, body);
   });
+};
+
+
+/**
+ * [downloadImageByURL description]
+ * @param {[string]}  url   [A remote image URL to fetch]
+ * @param {[string]}  filePath [A local path for where to persist the file]
+ */
+const downloadImageByURL = (url, filePath) => {
+  const startOfuserId = url.lastIndexOf('/u/');
+  const endOfUserId = url.lastIndexOf('?');
+  const userId = url.slice(startOfuserId + 2, endOfUserId);
+  console.log(userId);
+  request.get(url)
+    .on('error', (err) => {
+      console.log(err);
+    })
+    .on('response', () => {
+      // Maybe log something to user letting them know?
+    })
+    .pipe(fs.createWriteStream(`${filePath}${userId}.jpg`, (err) => {
+      console.log(err);
+    }));
 };
 
 getRepoContributors(owner, repo, callback);
