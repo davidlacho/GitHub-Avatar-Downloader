@@ -48,9 +48,13 @@ const callback = (err, results) => {
     return undefined;
   }
   const parsedResults = JSON.parse(results);
-  parsedResults.forEach((result) => {
+  const numberOfAvatars = parsedResults.length;
+  console.log(`Downloading ${numberOfAvatars} user avatars.`);
+  parsedResults.forEach((result, i) => {
+    console.log(`Downloading ${i + 1}/${numberOfAvatars} user avatars.`);
     downloadImageByURL(result.avatar_url, './avatars/');
   });
+  console.log('Done!');
   return undefined;
 };
 
