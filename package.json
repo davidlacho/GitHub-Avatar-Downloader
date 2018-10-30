@@ -4,7 +4,6 @@
   "description": "a command-line HTTP client that will request the avatars for all contributers to a given project on GitHub, and download them to disk.",
   "main": "download_avatars.js",
   "scripts": {
-    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,10 +20,7 @@
     "url": "https://github.com/fiveache/GitHub-Avatar-Downloader/issues"
   },
   "homepage": "https://github.com/fiveache/GitHub-Avatar-Downloader#readme",
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "request": "^2.88.0"
   }
