@@ -57,7 +57,7 @@ const callback = (err, results) => {
     });
     console.log('Done!');
   } else {
-    console.log('There were no avatars to download.');
+    console.log('Could not find avatars to download. Please check user and repository provided');
   }
   return undefined;
 };
