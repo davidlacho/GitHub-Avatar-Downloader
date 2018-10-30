@@ -1,9 +1,12 @@
 const request = require('request');
 const fs = require('fs');
-const {
-  gitHubKey,
-} = require('./secret/tokens.js');
+const env = require('dotenv').config();
 
+if (env.error) {
+  throw env.error;
+}
+
+const gitHubKey = process.env.GITHUB_KEY;
 const owner = process.argv[2];
 const repo = process.argv[3];
 

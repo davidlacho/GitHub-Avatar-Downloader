@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "a command-line HTTP client that will request the avatars for all contributers to a given project on GitHub, and download them to disk.",
   "main": "download_avatars.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fiveache/GitHub-Avatar-Downloader.git"
@@ -22,6 +21,7 @@
   "homepage": "https://github.com/fiveache/GitHub-Avatar-Downloader#readme",
   "devDependencies": {},
   "dependencies": {
+    "dotenv": "^6.1.0",
     "request": "^2.88.0"
   }
 }
