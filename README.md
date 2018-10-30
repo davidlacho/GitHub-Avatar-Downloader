@@ -12,6 +12,10 @@ Clone this repository to your local disk:
 ```
 git clone https://github.com/fiveache/GitHub-Avatar-Downloader.git
 ```
+cd to directory:
+```
+cd Github-Avatar-Downloader
+```
 Install dependencies
 ```
 npm install
@@ -20,15 +24,19 @@ Generate your [GitHub Personal Access Token](https://github.com/settings/tokens)
 ```
 mkdir secret && cd secret
 ```
-Create a new file called `token.js`:
+Create a new file called `tokens.js`:
 ```
-touch token.js
+touch tokens.js
 ```
-In `token.js`, paste the following code, replacing `<GitHub Access Token>` with your [GitHub Personal Access Token](https://github.com/settings/tokens):
+In `tokens.js`, paste the following code, replacing `<GitHub Access Token>` with your [GitHub Personal Access Token](https://github.com/settings/tokens):
 ```
 const gitHubKey = '<GitHub Access Token>';
 
 module.exports.gitHubKey = gitHubKey;
+```
+cd back to root of project:
+```
+cd ..
 ```
 
 ## Usage

@@ -49,12 +49,16 @@ const callback = (err, results) => {
   }
   const parsedResults = JSON.parse(results);
   const numberOfAvatars = parsedResults.length;
-  console.log(`Downloading ${numberOfAvatars} user avatars.`);
-  parsedResults.forEach((result, i) => {
-    console.log(`Downloading ${i + 1}/${numberOfAvatars} user avatars.`);
-    downloadImageByURL(result.avatar_url, './avatars/');
-  });
-  console.log('Done!');
+  if (numberOfAvatars) {
+    console.log(`Downloading ${numberOfAvatars} user avatars.`);
+    parsedResults.forEach((result, i) => {
+      console.log(`Downloading ${i + 1}/${numberOfAvatars} user avatars.`);
+      downloadImageByURL(result.avatar_url, './avatars/');
+    });
+    console.log('Done!');
+  } else {
+    console.log('There were no avatars to download.');
+  }
   return undefined;
 };
 
