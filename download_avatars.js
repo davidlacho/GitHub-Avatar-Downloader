@@ -77,6 +77,7 @@ const getRepoContributors = (repoOwner, repoName, cb) => {
   return undefined;
 };
 
+// Does check to ensure arguments passed into command line:
 if (owner && repo) {
   console.log('Welcome to the GitHub Avatar Downloader!');
   getRepoContributors(owner, repo, callback);
